@@ -1,0 +1,44 @@
+body {
+  background-image:url('/images/catdino.jpg');
+  background-position: center;
+  background-color:#282828;
+  background-repeat:no-repeat;
+  overflow: hidden;
+  margin:0px;
+  padding:0px;
+  overflow:hidden;
+  font-family:'Geo';
+}
+label {
+  bold;
+}
+.ui-dialog label {
+  display:block;
+}
+#tmp {
+  display:none;
+}
+.ui-widget {
+  font-family:'Geo' !important;
+}
+#tmp .ui-dialog {
+  width:400px;
+}
+#assets {
+  display:none;
+}
+.ui-progressbar-value {
+  background-image:url(/images/pbar-ani.gif);
+}
+.errorInput {
+  border: 2px dotted red;
+}
+.errorMsg {
+  color:red;
+  font-weight:bold;
+}
+.msg {
+  padding:5px;
+  border: 1px solid black;
+  margin:2px;
+}

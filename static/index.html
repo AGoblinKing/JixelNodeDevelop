@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1"/>
+    <meta name="viewport" content="width=device-width; 
+	initial-scale=1; maximum-scale=1; user-scalable=0;"/>
+    
+    <link type="text/css" rel="stylesheet" href="css/ui-lightness/jquery-ui.css"/>
+    <link type="text/css" rel="stylesheet" href="css/style.css"/>
+    <link href='http://fonts.googleapis.com/css?family=Geo' rel='stylesheet' type='text/css'/>
+    
+    <script type="text/javascript" src="lib/jquery.js"></script>
+    <script type="text/javascript" src="lib/jquery-ui.js"></script>
+	<script type="text/javascript" src="lib/jquery.sha1.js"></script>
+    <script type="text/javascript" src="lib/jquery.require.js"></script>
+    <script type="text/javascript" src="lib/mootools-min.js"></script>
+    <script type="text/javascript" src="lib/jixel.js"></script>
+    <script type="text/javascript" src="dnode.js"></script>
+    <script type="text/javascript" src="lib/jixel-develop.js"></script>
+  </head>
+  <body>
+	<div id="c">
+	  <div id="jixel">
+		<canvas></canvas>s
+	  </div>
+	  <div id="createAccount">
+		<label for='name'>Name</label><input type="text" name="name"/>
+		<label for='password'>Password</label><input type="password" name="password"/>
+		<label for='email'>Email Address</label><input type="text" name="email"/>
+	  </div>
+	  <div id="connecting">
+		<div class="loadbar"></div>
+	  </div>
+	  <div id="login">
+		<label for='name'>Name</label><input type="text" name="name"/>
+		<label for='password'>Password</label><input type="password" name="password"/>
+	  </div>
+	</div>
+    <!--[if lte IE 9]>
+    <script type="text/javascript" 
+     src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js"></script>
+    <style>
+     .chromeFrameInstallDefaultStyle {
+       width: 100%; /* default is 800px */
+       border: 5px solid blue;
+     }
+    </style>
+    <div id="prompt">
+    </div>
+    <script>
+     // The conditional ensures that this code will only execute in IE,
+     // Therefore we can use the IE-specific attachEvent without worry
+     $(function() {
+       CFInstall.check({
+         mode: "inline", // the default
+         node: "prompt"
+       });
+     });
+    </script>
+    <![endif]-->
+  </body>
+</html>
