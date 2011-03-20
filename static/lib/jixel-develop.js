@@ -1,6 +1,24 @@
 var config = {
   salt: "<('.'<)~(^.^)~(>'.')> I sing the body electric. http://farm3.static.flickr.com/2501/4125017869_4853d4dabb_z.jpg"
-}
+};
+(function($){
+  $.fn.params = function(fn) {
+    var params = {};
+    this.find('input').each(function(){ 
+     params[$(this).attr('name')] = $(this).val();
+     if(fn !== undefined) fn(this);
+    });
+    return params;
+  }
+})(jQuery);
+var defaultWidgets = {
+  resizable: false,
+  closable: false,
+  autoOpen: false,
+  open: function() {
+    $(this).find('.msg').remove();
+  }
+};
 function Err(msg) {
   return Msg(msg).addClass('errorMsg');
 }
@@ -15,28 +33,30 @@ $(function(){
     }); 
   });
   // Setup Templates/Widgets
-  $('#connecting').dialog({
-    resizable: false,
-    title: 'Connecting...'
-  });
-  $('#login').dialog({
+  $('#connecting').dialog(Object.merge({},defaultWidgets,{
+    title: 'Connecting...',
+    autoOpen: true
+  }));
+  $('#login').dialog(Object.merge({},defaultWidgets,{
     title: 'Login to Jixel!',
-    resizable: false,
     buttons: {
       'Create Account': function() {
         $('#login').dialog('close');
         $('#createAccount').dialog('open');
       },
       'Login': function() {
-        
+        $('#login').dialog('close');
+        $('#connecting').dialog('open').dialog({title:'Logging in.....'});
+        jxlNode.remote.login($('#login').params(), function(iface){}, function(err) {
+          $('#connecting').dialog('close');
+          $('#login').dialog('open');
+          $('#login').prepend($('<div/>').addClass('msg').append(Err(err)));
+        });
       }
-    },
-    autoOpen: false
-  });
-  $('#createAccount').dialog({
-    autoOpen:false,
+    }
+  }));
+  $('#createAccount').dialog(Object.merge({},defaultWidgets,{
     title: 'Create Jixel Account!',
-    resizable:false,
     buttons: {
       'Nah, man': function() {
         $('#createAccount').dialog('close');
@@ -65,10 +85,12 @@ $(function(){
         } else {
           params.password = $.sha1(params.password+config.salt);
           jxlNode.remote.create(params, function() {
+            console.log('asda');
             $('#createAccount').dialog('close');
             $('#login').dialog('open');
             $('#login').prepend(msg.append(Msg('Created your acccount, %r'.replace('%r',params.name))));
           }, function(errs) {
+                   console.log('asda2');
             errs.each(function(err) {
               $('#createAccount input[name="'+err.name+'"]').addClass('errorInput');
               $(msg).append(Err(err.message));
@@ -78,7 +100,7 @@ $(function(){
         }
       }
     }
-  });
+  }));
   
   var JixelNode = new Class({
     initialize: function(callback) {

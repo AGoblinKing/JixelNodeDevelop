@@ -15,6 +15,18 @@ label {
 .ui-dialog label {
   display:block;
 }
+#bar {
+  display: none;
+  z-index:50000;
+  position:fixed;
+  width:100%;
+  height:30px;
+  top:0px;
+  background-color:black;
+  border-bottom:2px solid gray;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+}
 #tmp {
   display:none;
 }
