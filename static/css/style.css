@@ -1,6 +1,6 @@
 body {
   background-image:url('/images/catdino.jpg');
-  background-position: center;
+  background-position: top center;
   background-color:#282828;
   background-repeat:no-repeat;
   overflow: hidden;

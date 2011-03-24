@@ -1,21 +1,25 @@
-var db = require('../db');
+var db = require('../db'),
+    fs = require('fs');
 
 var IFaceJixel = {
-
-    
+    get: function(success, fail) {
+        fs.readFile('../templates/default.js', function(err, data) {
+           if(err) fail(err);
+           else success(data);
+        });
+    }
 }
 var IFaceDevelop = {
-    
+    woo: function(){}
 }
 var IFaceLogin = {
     login: function(params, success, fail) {
         var errs = [];
         db.User.find(params, function(err, docs) {
             if(docs.length == 1) {
-                success();
+                success(IFaceDevelop);
             } else {
-                errs.push({name:'name', message: 'Invalid Login'});
-                fail(errs);
+                fail({message: 'Invalid Login'});
             }
         });
     },

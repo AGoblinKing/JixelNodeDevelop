@@ -1,3 +1,9 @@
+$(function() {
+  var test = new LoginWidget();
+  test.render();
+});
+
+/*
 var config = {
   salt: "<('.'<)~(^.^)~(>'.')> I sing the body electric. http://farm3.static.flickr.com/2501/4125017869_4853d4dabb_z.jpg"
 };
@@ -11,14 +17,7 @@ var config = {
     return params;
   }
 })(jQuery);
-var defaultWidgets = {
-  resizable: false,
-  closable: false,
-  autoOpen: false,
-  open: function() {
-    $(this).find('.msg').remove();
-  }
-};
+
 function Err(msg) {
   return Msg(msg).addClass('errorMsg');
 }
@@ -33,6 +32,29 @@ $(function(){
     }); 
   });
   // Setup Templates/Widgets
+  $('#project').dialog(Object.merge({},defaultWidgets,{
+    title: 'Projects',
+    resizable: true,
+    width:200,
+    height:300
+  }));
+  $('#toolbox').dialog(Object.merge({},defaultWidgets,{
+    title: 'Toolbox',
+    resizable: true,
+    height: 350,
+    width:150
+  }));
+  $('#jixel').dialog(Object.merge({},defaultWidgets,{
+    title: 'Jixel',
+    buttons: {
+      'Stop': function() {
+        
+      },
+      'Play': function() {
+        
+      }
+    }
+  }));
   $('#connecting').dialog(Object.merge({},defaultWidgets,{
     title: 'Connecting...',
     autoOpen: true
@@ -47,10 +69,17 @@ $(function(){
       'Login': function() {
         $('#login').dialog('close');
         $('#connecting').dialog('open').dialog({title:'Logging in.....'});
-        jxlNode.remote.login($('#login').params(), function(iface){}, function(err) {
+        var params = $('#login').params();
+        params.password = $.sha1(params.password+config.salt);
+        jxlNode.remote.login(params, function(iface){
+            jxlNode.remote = iface;
+            $('#connecting').dialog('close');
+            $('#jixel, #toolbox, #project').dialog('open');
+            $('#bar').show();
+          }, function(err) {
           $('#connecting').dialog('close');
           $('#login').dialog('open');
-          $('#login').prepend($('<div/>').addClass('msg').append(Err(err)));
+          $('#login').prepend($('<div/>').addClass('msg').append(Err(err.message)));
         });
       }
     }
@@ -85,12 +114,10 @@ $(function(){
         } else {
           params.password = $.sha1(params.password+config.salt);
           jxlNode.remote.create(params, function() {
-            console.log('asda');
             $('#createAccount').dialog('close');
             $('#login').dialog('open');
-            $('#login').prepend(msg.append(Msg('Created your acccount, %r'.replace('%r',params.name))));
+            $('#login').prepend($(msg).append(Msg('Created your acccount, %r'.replace('%r',params.name))));
           }, function(errs) {
-                   console.log('asda2');
             errs.each(function(err) {
               $('#createAccount input[name="'+err.name+'"]').addClass('errorInput');
               $(msg).append(Err(err.message));
@@ -121,3 +148,4 @@ $(function(){
   });
   
 });
+*/
